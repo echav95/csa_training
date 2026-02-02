@@ -23,5 +23,6 @@ sources:
             data_tests:
               - unique
       - name: PARTSUPP
+        description: '{{ doc("table_details") }}'
       - name: PART
       - name: SUPPLIER
