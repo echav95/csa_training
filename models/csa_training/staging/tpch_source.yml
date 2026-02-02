@@ -13,7 +13,15 @@ sources:
 
     tables:
       - name: LINEITEM
+        columns:
+          - name: L_ORDERKEY
+            data_tests:
+              - not_null
       - name: ORDERS
+        columns:
+          - name: O_ORDERKEY
+            data_tests:
+              - unique
       - name: PARTSUPP
       - name: PART
       - name: SUPPLIER
