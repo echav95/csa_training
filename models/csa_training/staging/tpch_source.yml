@@ -1,0 +1,28 @@
+sources:
+  - name: tpch_source
+    database: RAW
+    schema: TPCH_SF001
+    config: 
+      freshness: 
+        warn_after: 
+          count: 1
+          period: day
+        error_after: 
+          count: 2
+          period: day
+
+    tables:
+      - name: LINEITEM
+        columns:
+          - name: L_ORDERKEY
+            data_tests:
+              - not_null
+      - name: ORDERS
+        columns:
+          - name: O_ORDERKEY
+            data_tests:
+              - unique
+      - name: PARTSUPP
+        description: '{{ doc("table_details") }}'
+      - name: PART
+      - name: SUPPLIER
