@@ -1,0 +1,10 @@
+sources:
+  - name: tpch_source
+    database: RAW
+    schema: TPCH_SF001
+    tables:
+      - name: LINEITEM
+      - name: ORDERS
+      - name: PARTSUPP
+      - name: PART
+      - name: SUPPLIER
