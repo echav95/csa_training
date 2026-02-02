@@ -2,6 +2,15 @@ sources:
   - name: tpch_source
     database: RAW
     schema: TPCH_SF001
+    config: 
+      freshness: 
+        warn_after: 
+          count: 1
+          period: day
+        error_after: 
+          count: 2
+          period: day
+
     tables:
       - name: LINEITEM
       - name: ORDERS
