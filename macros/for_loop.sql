@@ -3,5 +3,3 @@
 {% for food in foods %} 
     The delicious {{ food }}
 {% endfor %}
-
-{{ foods[0] }}
