@@ -4,4 +4,4 @@
     The delicious {{ food }}
 {% endfor %}
 
-{{ foods[2] }}
+{{ foods[0] }}
