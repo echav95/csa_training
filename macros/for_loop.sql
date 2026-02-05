@@ -1,7 +1,7 @@
-{% set foods = ['radish', 'cucumber', 'chicken nugget', 'avocado'] %}
+{% set foods = ["radish", "cucumber", "chicken nugget", "avocado"] %}
 
 {% for food in foods %} 
     The delicious {{ food }}
 {% endfor %}
 
-{{ foods[0] }}
+{{ foods[2] }}
