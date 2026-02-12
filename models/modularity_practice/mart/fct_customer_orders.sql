@@ -23,7 +23,7 @@ customers as (
         from raw_customers
     ),
 
-a as (
+orders as (
         select
                     row_number() over (
                         partition by user_id order by order_date, id
@@ -43,47 +43,47 @@ customer_order_history as (
             min(order_date) as first_order_date,
             min(
                 case
-                    when a.status not in ('returned', 'return_pending') then order_date
+                    when orders.status not in ('returned', 'return_pending') then order_date
                 end
             ) as first_non_returned_order_date,
             max(
                 case
-                    when a.status not in ('returned', 'return_pending') then order_date
+                    when orders.status not in ('returned', 'return_pending') then order_date
                 end
             ) as most_recent_non_returned_order_date,
             coalesce(max(user_order_seq), 0) as order_count,
             coalesce(
-                count(case when a.status != 'returned' then 1 end), 0
+                count(case when orders.status != 'returned' then 1 end), 0
             ) as non_returned_order_count,
             sum(
                 case
-                    when a.status not in ('returned', 'return_pending')
+                    when orders.status not in ('returned', 'return_pending')
                     then round(c.amount / 100.0, 2)
                     else 0
                 end
             ) as total_lifetime_value,
             sum(
                 case
-                    when a.status not in ('returned', 'return_pending')
+                    when orders.status not in ('returned', 'return_pending')
                     then round(c.amount / 100.0, 2)
                     else 0
                 end
             ) / nullif(
                 count(
-                    case when a.status not in ('returned', 'return_pending') then 1 end
+                    case when orders.status not in ('returned', 'return_pending') then 1 end
                 ),
                 0
             ) as avg_non_returned_order_value,
-            array_agg(distinct a.id) as order_ids
+            array_agg(distinct orders.id) as order_ids
 
-        from a
+        from orders
 
         join customers
-            on a.user_id = customers.customer_id
+            on orders.user_id = customers.customer_id
 
-        left outer join raw_payments c on a.id = c.orderid
+        left outer join raw_payments c on orders.id = c.orderid
 
-        where a.status not in ('pending') and c.status != 'fail'
+        where orders.status not in ('pending') and c.status != 'fail'
 
         group by customers.customer_id, customers.full_name, customers.surname, customers.givenname
 
