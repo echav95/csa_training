@@ -11,4 +11,4 @@ sources:
     database: ANALYTICS
     schema: DBT_ECHAVEZ
     tables:
-      - name: PAYMENTS
+      - name: PAYMENT
