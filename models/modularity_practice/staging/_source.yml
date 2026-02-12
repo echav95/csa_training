@@ -7,4 +7,8 @@ sources:
 
       - name: RAW_ORDERS
 
+  - name: stripe
+    database: ANALYTICS
+    schema: DBT_ECHAVEZ
+    tables:
       - name: RAW_PAYMENTS
