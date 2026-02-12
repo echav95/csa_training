@@ -1,0 +1,10 @@
+sources:
+  - name: jaffle_shop
+    database: ANALYTICS
+    schema: DBT_ECHAVEZ
+    tables:
+      - name: RAW_CUSTOMERS
+
+      - name: RAW_ORDERS
+
+      - name: RAW_PAYMENTS
