@@ -1,14 +1,14 @@
 sources:
   - name: jaffle_shop
-    database: ANALYTICS
-    schema: DBT_ECHAVEZ
+    database: analytics
+    schema: dbt_echavez
     tables:
-      - name: RAW_CUSTOMERS
+      - name: CUSTOMERS
 
-      - name: RAW_ORDERS
+      - name: orders
 
   - name: stripe
-    database: ANALYTICS
-    schema: DBT_ECHAVEZ
+    database: analytics
+    schema: dbt_echavez
     tables:
-      - name: RAW_PAYMENTS
+      - name: payments

@@ -1,2 +1,2 @@
 select *
-from {{ source('jaffle_shop', 'RAW_CUSTOMERS') }}
+from {{ source('jaffle_shop', 'CUSTOMERS') }}
