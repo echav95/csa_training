@@ -34,6 +34,18 @@ orders as (
                 from raw_orders
             ),
 
+payments as (
+    select 
+            ID as payment_id,
+            ORDERID as order_id,
+            PAYMENTMETHOD as payment_method,
+            STATUS as payment_status,
+            round(AMOUNT/100.0,2) as payment_amount,
+            CREATED as payment_created_at
+
+    from raw_payments
+),
+
 --Marts
 customer_order_history as (
 
@@ -60,14 +72,14 @@ customer_order_history as (
             sum(
                 case
                     when orders.order_status not in ('returned', 'return_pending')
-                    then round(c.amount / 100.0, 2)
+                    then c.payment_amount
                     else 0
                 end
             ) as total_lifetime_value,
             sum(
                 case
                     when orders.order_status not in ('returned', 'return_pending')
-                    then round(c.amount / 100.0, 2)
+                    then c.payment_amount
                     else 0
                 end
             ) / nullif(
@@ -83,9 +95,9 @@ customer_order_history as (
         join customers
             on orders.customer_id = customers.customer_id
 
-        left outer join raw_payments c on orders.order_id = c.orderid
+        left outer join payments c on orders.order_id = c.order_id
 
-        where orders.order_status not in ('pending') and c.status != 'fail'
+        where orders.order_status not in ('pending') and c.payment_status != 'fail'
 
         group by customers.customer_id, customers.full_name, customers.surname, customers.givenname
 
@@ -94,17 +106,17 @@ customer_order_history as (
 -- Final CTE
 
 final as (select
-    orders.order_id as order_id,
-    orders.customer_id as customer_id,
+    orders.order_id,
+    orders.customer_id,
     customers.surname,
     customers.givenname,
     first_order_date,
     order_count,
     total_lifetime_value,
-    round(amount / 100.0, 2) as order_value_dollars,
+    payments.payment_amount as order_value_dollars,
     orders.order_status as order_status,
-    payments.status as payment_status
-from raw_orders as orders
+    payments.payment_status
+from  orders
 join customers
     on orders.customer_id = customers.customer_id
 
@@ -112,12 +124,11 @@ join customer_order_history
     on orders.customer_id = customer_order_history.customer_id
 
 left outer join
-    raw_payments payments on orders.order_id = payments.orderid
+    payments on orders.order_id = payments.order_id
 
-where payments.status != 'fail')
+where payments.payment_status != 'fail')
 
 -- Final Select
 
 select *
 from final
-
