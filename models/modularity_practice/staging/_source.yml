@@ -3,9 +3,9 @@ sources:
     database: ANALYTICS
     schema: DBT_ECHAVEZ
     tables:
-      - name: CUSTOMERS
+      - name: RAW_CUSTOMERS
 
-      - name: ORDERS
+      - name: RAW_ORDERS
 
   - name: stripe
     database: ANALYTICS

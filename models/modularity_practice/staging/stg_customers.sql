@@ -1,5 +1,5 @@
 with raw_customers as (
-    select * from {{ source("jaffle_shop", "CUSTOMERS") }}
+    select * from {{ source("jaffle_shop", "RAW_CUSTOMERS") }}
     ),
 
 transformed as (
