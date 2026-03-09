@@ -98,4 +98,4 @@ with
 
 -- Final Select
 select *
-from final
+from final f
