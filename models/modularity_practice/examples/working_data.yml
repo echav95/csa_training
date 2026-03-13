@@ -15,5 +15,4 @@ models:
         description: "customer family name"
       - name: givenname
         description: "customer given name"
-      - name: status
-        description: "current order fulfillment status associated with the record"
+
