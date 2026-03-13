@@ -10,5 +10,5 @@ with
         from raw_customers
     )
 
-select customer_id, full_name, surname, givenname
+select customer_id, full_name, surname, givenname, 'shipped' as status
 from transformed
