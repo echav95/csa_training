@@ -17,3 +17,5 @@ models:
         description: "customer given name"
       - name: status
         description: "current order fulfillment status associated with the record"
+      - name: location
+        description: "location where orders were fulfilled"
