@@ -6,7 +6,7 @@ with
             id as customer_id,
             first_name || ' ' || last_name as full_name,
             last_name as surname,
-            first_name as givenname,
+            first_name as givenname
         from raw_customers
     )
 
